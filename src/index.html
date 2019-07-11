@@ -1,14 +1,42 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>Ivy</title>
-  <base href="/">
+<html>
+<style>
+  html {
+    --label-color: blue;
+  }
+</style>
+<script>
+  window.addEventListener('load', () => {
+    const appForm = document.querySelector('app-form');
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
-</head>
+    const btnAttr = document.getElementById('btnChangeLabelByAttr');
+    btnAttr.addEventListener('click', () => {
+      appForm.setAttribute('label', 'new label');
+    });
+    const btnProp = document.getElementById('btnChangeLabelByProp');
+    btnProp.addEventListener('click', () => {
+      appForm.label = 'new label';
+    });
+    const btnReset = document.getElementById('btnReset');
+    btnReset.addEventListener('click', () => {
+      appForm.label = 'my label';
+    });
+
+    appForm.addEventListener('submitted', (event) => {
+      document.getElementById('submitResult').textContent = event.detail;
+    });
+  });
+</script>
+
 <body>
-  <app-root></app-root>
+  <label>Label outside</label> <br />
+  <app-form label="my label">
+  </app-form>
+  <br />
+  <button id="btnChangeLabelByAttr">Update Label by Attribute</button>
+  <button id="btnChangeLabelByProp">Update Label by Property</button>
+  <button id="btnReset">Reset</button>
+  <br />
+  <label id="submitResult"></label>
 </body>
+
 </html>
